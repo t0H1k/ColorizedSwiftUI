@@ -17,10 +17,9 @@ struct ColorView: View {
         Color(red: red / 255, green: green / 255, blue: blue / 255)
             .frame(height: 180)
             .cornerRadius(20.0)
-            .overlay(
-                RoundedRectangle(
-                    cornerRadius: 20.0,
-                    style: .continuous).stroke(Color(.white),lineWidth: 4)
+            .overlay(RoundedRectangle(
+                cornerRadius: 20.0,
+                style: .continuous).stroke(Color(.white),lineWidth: 4)
             )
     }
 }

@@ -19,18 +19,73 @@ struct ContentView: View {
         ZStack {
             Color(.gray)
                 .ignoresSafeArea()
+                .onTapGesture {
+                    focusedField = nil
+                }
             
             VStack(spacing: 40) {
                 ColorView(red: redSlider, green: greenSlider, blue: blueSlider)
                 
                 VStack {
                     SliderView(sliderValue: $redSlider, color: .red)
+                        .focused($focusedField, equals: .red)
                     SliderView(sliderValue: $greenSlider, color: .green)
+                        .focused($focusedField, equals: .green)
                     SliderView(sliderValue: $blueSlider, color: .blue)
+                        .focused($focusedField, equals: .blue)
+                }
+                .toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Button(action: previousField) {
+                            Image(systemName: "chevron.up")
+                        }
+                        Button(action: nextField) {
+                            Image(systemName: "chevron.down")
+                        }
+                        Spacer()
+                        Button("Done") {
+                            focusedField = nil
+                        }
+                    }
                 }
                 Spacer()
             }
             .padding()
+        }
+    }
+}
+
+extension ContentView {
+    
+    private enum Field {
+        case red
+        case green
+        case blue
+    }
+    
+    private func nextField() {
+        switch focusedField {
+        case .red:
+            focusedField = .green
+        case .green:
+            focusedField = .blue
+        case .blue:
+            focusedField = .red
+        case .none:
+            focusedField = nil
+        }
+    }
+    
+    private func previousField() {
+        switch focusedField {
+        case .red:
+            focusedField = .blue
+        case .green:
+            focusedField = .red
+        case .blue:
+            focusedField = .green
+        case .none:
+            focusedField = nil
         }
     }
 }

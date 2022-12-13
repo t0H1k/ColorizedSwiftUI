@@ -9,13 +9,12 @@ import SwiftUI
 
 struct SliderView: View {
     @Binding var sliderValue: Double
-    @State var textValue = ""
-    
+    @State private var textValue = ""
     var color: Color
     
     var body: some View {
         HStack {
-            SliderLabelView(value: sliderValue)
+            TextView(value: sliderValue)
             Slider(value: $sliderValue, in: 0...255, step: 1)
                 .accentColor(color)
                 .onChange(of: sliderValue) { value in
